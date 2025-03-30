@@ -1,5 +1,5 @@
 <?php
-include "conn.php";
+include "../include/conn.php";
 $query = "SELECT * FROM mahasiswa ORDER BY nama ASC";
 $result = mysqli_query($conn, $query);
 ?>

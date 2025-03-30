@@ -1,5 +1,5 @@
 <?php
-include "conn.php";
+include "../include/conn.php";
 
 $nim = $_GET['nim'];
 $query = "SELECT * FROM mahasiswa WHERE nim = $nim";
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
   $update = mysqli_query($conn, $queryUpdate);
   if (mysqli_affected_rows($conn) > 0) {
     echo "<script>alert('Data Berhasil diubah')</script>";
-    header("Location:index.php");
+    header("Location:data.php");
   }
 }
 
@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
 
 <body>
   <h1>Ubah data mahasiswa</h1>
-  <a href="index.php">[Kembali Ke Halaman Utama]</a>
+  <h3><a href="data.php">[Kembali Ke Halaman Utama]</a></h3>
   <form action="" method="post">
     <table>
       <tr>

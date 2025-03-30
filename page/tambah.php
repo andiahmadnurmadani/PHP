@@ -1,5 +1,5 @@
 <?php
-include "conn.php";
+include "../include/conn.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +70,7 @@ include "conn.php";
       </tr>
     </table>
   </form>
-  <h2><a href="index.php">Kembali Ke Halaman Utama</a></h2>
+  <h2><a href="data.php">Kembali Ke Halaman Utama</a></h2>
 </body>
 </html>
 
@@ -89,7 +89,7 @@ include "conn.php";
     $query = "INSERT INTO mahasiswa VALUES('$nim', '$nama', '$tanggal', '$jenisKelamin', '$alamat', '$email', '$noHp', '$prodi', '$angkatan')";
     mysqli_query($conn, $query);
     if (mysqli_affected_rows($conn) > 0) {
-      header("Location:index.php");
+      header("Location:data.php");
     } else {
       echo  "<script>alert('Data Gagal Ditambahkan!')</script>";
     }

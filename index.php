@@ -35,7 +35,8 @@ $result = mysqli_query($conn, $query);
     }
 
     h1,
-    h3 {
+    h3,
+    h2 {
       text-align: center;
     }
   </style>
@@ -43,6 +44,7 @@ $result = mysqli_query($conn, $query);
 
 <body>
   <h1>Data Mahasiswa</h1>
+  <h2><a href="tambah.php">[Tambah Data]</a></h2>
   <?php
   $baris = "SELECT COUNT(*) as baris FROM mahasiswa";
   $exBaris = mysqli_query($conn, $baris);

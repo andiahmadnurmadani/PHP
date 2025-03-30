@@ -89,10 +89,9 @@ include "conn.php";
     $query = "INSERT INTO mahasiswa VALUES('$nim', '$nama', '$tanggal', '$jenisKelamin', '$alamat', '$email', '$noHp', '$prodi', '$angkatan')";
     mysqli_query($conn, $query);
     if (mysqli_affected_rows($conn) > 0) {
-      echo "<script>alert('Data Berhasil Ditambahkan!')</script>";
+      header("Location:index.php");
     } else {
       echo  "<script>alert('Data Gagal Ditambahkan!')</script>";
     }
-    header("Location:index.php");
   }
 ?>

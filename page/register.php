@@ -25,33 +25,33 @@ include "../include/conn.php";
     <form class="register-form" action="" method="POST">
       <div class="form-group">
         <label for="fullname">Nama Lengkap</label>
-        <input type="text" id="fullname" name="fullname" placeholder="Masukkan nama lengkap Anda" required>
+        <input type="text" id="fullname" name="fullname" placeholder="Masukkan nama lengkap Anda" required value="<?= isset($_POST['fullname']) ? htmlspecialchars($_POST['fullname']) : "" ?>">
       </div>
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
+        <input type="email" id="email" name="email" placeholder="contoh@email.com" required value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : "" ?>">
       </div>
 
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Buat username unik" required>
+        <input type="text" id="username" name="username" placeholder="Buat username unik" required value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : "" ?>">
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" required>
+        <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" required value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : "" ?>">
         <small class="password-hint">Gunakan kombinasi huruf, angka, dan simbol</small>
       </div>
 
       <div class="form-group">
         <label for="confirm-password">Konfirmasi Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" placeholder="Ketik ulang password Anda" required>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Ketik ulang password Anda" required value="<?= isset($_POST['confirm-password']) ? htmlspecialchars($_POST['confirm-password']) : "" ?>">
       </div>
 
       <div class="terms-container">
         <label class="terms-checkbox">
-          <input type="checkbox" name="agree-terms" required>
+          <input type="checkbox" name="persetujuan" <?= isset($_POST['persetujuan']) ? "checked" : "" ?>>
           <span class="checkmark"></span>
           Saya menyetujui
           <a href="#" class="terms-link">Syarat dan Ketentuan</a>
@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
   $konfirpass = $_POST['confirm-password'];
-  $setuju = isset($_POST['agree-terms']) ? 1 : 0;
+  $setuju = isset($_POST['persetujuan']) ? 1 : 0;
   if (!$setuju) {
     echo "<script>alert('Anda harus menyetujui syarat dan ketentuan!')</script>";
     exit();
@@ -96,7 +96,7 @@ if (isset($_POST['submit'])) {
     exit();
   }
 
-  if ($password == $konfirpass) {
+  if ($password == $konfirpass && strlen($password) >= 8) {
     $query = "INSERT INTO pengguna (username, password, name, email) VALUES ('$username', '$password', '$namalengkap', '$email')";
     mysqli_query($conn, $query);
   } else {
@@ -104,8 +104,11 @@ if (isset($_POST['submit'])) {
   }
 
   if (mysqli_affected_rows($conn) > 0) {
-    echo "<script>alert('Data Berhasil ditambahkan')</script>";
-    header("Location:index.php");
+    echo "
+    <script>
+    alert('Data Berhasil ditambahkan')
+    window.location.href='index.php'
+    </script>";
   }
 }
 ?>

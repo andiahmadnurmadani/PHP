@@ -35,18 +35,18 @@ include "../include/conn.php";
 
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Buat username unik" required value="<?= isset($_POST['username']) && strlen($_POST['username'])  < 16 ? htmlspecialchars($_POST['username']) : "" ?>">
+        <input type="text" id="username" name="username" placeholder="Buat username unik" required value="<?= isset($_POST['username']) && strlen($_POST['username'])  <= 16 ? htmlspecialchars($_POST['username']) : "" ?>">
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" required value="<?= isset($_POST['password']) && strlen($_POST['password']) >= 8 ? htmlspecialchars($_POST['password']) : "" ?>">
+        <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" required value="<?= isset($_POST['password']) && strlen($_POST['password']) >= 8 && strlen($_POST['password']) <= 16 ? htmlspecialchars($_POST['password']) : "" ?>">
         <small class="password-hint">Gunakan kombinasi huruf, angka, dan simbol</small> 
       </div>
 
       <div class="form-group">
         <label for="confirm-password">Konfirmasi Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" placeholder="Ketik ulang password Anda" required value="<?= isset($_POST['password']) && strlen($_POST['password']) >= 8 ? htmlspecialchars($_POST['confirm-password']) : "" ?>">
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="Ketik ulang password Anda" required value="<?= isset($_POST['password']) && strlen($_POST['password']) >= 8 && strlen($_POST['password']) <= 16 ? htmlspecialchars($_POST['confirm-password']) : "" ?>">
       </div>
 
       <div class="terms-container">
@@ -96,7 +96,7 @@ if (isset($_POST['submit'])) {
     exit();
   }
 
-  if ($password == $konfirpass && strlen($password) >= 8) {
+  if ($password == $konfirpass && strlen($password) >= 8 && strlen($password) <= 16) {
     $query = "INSERT INTO pengguna (username, password, name, email) VALUES ('$username', '$password', '$namalengkap', '$email')";
     mysqli_query($conn, $query);
   } else {

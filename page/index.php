@@ -1,3 +1,6 @@
+<?php
+include "../include/conn.php";
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -34,7 +37,7 @@
         <a href="#">Lupa password?</a>
       </div>
 
-      <button type="submit" class="login-button">Masuk</button>
+      <button type="submit" class="login-button" name="login">Masuk</button>
 
       <div class="register-link">
         Belum punya akun? <a href="register.php">Daftar disini</a>
@@ -44,3 +47,24 @@
 </body>
 
 </html>
+
+<?php
+if(isset($_POST['login'])) {
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $cek = mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$username' AND password ='$password'");
+
+  if(mysqli_num_rows($cek) == 1) {
+    echo "
+    <script>
+    alert('Berhasil Login')
+    window.location.href='data.php';
+    </script>";
+  } else {
+    echo "
+    <script>
+    alert('Username atau password salah!')
+    </script>";
+  }
+}
+?>

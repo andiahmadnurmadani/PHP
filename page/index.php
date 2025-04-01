@@ -16,7 +16,7 @@
       <p>Silakan masuk ke akun Anda</p>
     </div>
 
-    <form class="login-form" action="/login" method="POST">
+    <form class="login-form" action="" method="POST">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Masukkan username" required>

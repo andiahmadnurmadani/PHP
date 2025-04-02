@@ -97,7 +97,8 @@ if (isset($_POST['submit'])) {
   }
 
   if ($password == $konfirpass && strlen($password) >= 8 && strlen($password) <= 16) {
-    $query = "INSERT INTO pengguna (username, password, name, email) VALUES ('$username', '$password', '$namalengkap', '$email')";
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    $query = "INSERT INTO pengguna (username, password, name, email) VALUES ('$username', '$hash', '$namalengkap', '$email')";
     mysqli_query($conn, $query);
   } else {
     echo "<script>alert('Password tidak sesuai')</script>";

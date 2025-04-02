@@ -1,5 +1,13 @@
 <?php
 include "../include/conn.php";
+include "../include/check_session.php";
+
+function greet($username, $time)
+{
+  echo "<p>Selamat Datang, $username</p>";
+  echo "<p>Waktu Login : $time</p>";
+}
+
 $query = "SELECT * FROM mahasiswa ORDER BY nama ASC";
 $result = mysqli_query($conn, $query);
 ?>
@@ -43,8 +51,10 @@ $result = mysqli_query($conn, $query);
 </head>
 
 <body>
+  <?php greet($_SESSION['fullname'], $_SESSION['time']) ?>
   <h1>Data Mahasiswa</h1>
   <h2><a href="tambah.php">[Tambah Data]</a></h2>
+  <h2><a href="logout.php" style="color: red;" onclick="return confirm('Tetap ingin Log out?')">[Log Out]</a></h2>
   <?php
   $baris = "SELECT COUNT(*) as baris FROM mahasiswa";
   $exBaris = mysqli_query($conn, $baris);

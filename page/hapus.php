@@ -1,5 +1,7 @@
 <?php
 include "../include/conn.php";
+include "../include/check_session.php";
+
 $nim = $_GET['nim'];
 $query = "DELETE FROM mahasiswa WHERE nim='$nim'";
 mysqli_query($conn, $query);

@@ -1,5 +1,39 @@
 <?php
+session_start();
 include "../include/conn.php";
+
+$valueUsername = "";
+
+if (isset($_POST['login'])) {
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $cek = mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$username'");
+  $valueUsername = $username;
+
+  if (mysqli_num_rows($cek) == 1) {
+    $getPass = mysqli_fetch_assoc($cek);
+    if (password_verify($password, $getPass['password'])) {
+        $_SESSION['fullname'] = $getPass['name'];
+        $_SESSION['time'] = date('l, j F Y', time());
+      echo "
+      <script>
+      alert('Berhasil Login')
+      window.location.href='data.php';
+      </script>";
+    } else {
+      echo "
+      <script>
+      alert('Password salah!')
+      </script>";
+    }
+  } else {
+    echo "
+    <script>
+    alert('Username salah!')
+    </script>";
+    $valueUsername = "";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -22,7 +56,7 @@ include "../include/conn.php";
     <form class="login-form" action="" method="POST">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Masukkan username" required>
+        <input type="text" id="username" name="username" placeholder="Masukkan username" required value="<?= $valueUsername ?>">
       </div>
 
       <div class="form-group">
@@ -47,24 +81,3 @@ include "../include/conn.php";
 </body>
 
 </html>
-
-<?php
-if(isset($_POST['login'])) {
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $cek = mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$username' AND password ='$password'");
-
-  if(mysqli_num_rows($cek) == 1) {
-    echo "
-    <script>
-    alert('Berhasil Login')
-    window.location.href='data.php';
-    </script>";
-  } else {
-    echo "
-    <script>
-    alert('Username atau password salah!')
-    </script>";
-  }
-}
-?>

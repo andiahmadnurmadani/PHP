@@ -1,5 +1,6 @@
 <?php
 include "../include/conn.php";
+include "../include/check_session.php";
 
 $nim = $_GET['nim'];
 $query = "SELECT * FROM mahasiswa WHERE nim = $nim";

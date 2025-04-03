@@ -7,13 +7,13 @@ $valueUsername = "";
 if (isset($_POST['login'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
-  $cek = mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$username'");
+  $cek = mysqli_query($conn, "SELECT * FROM user WHERE username='$username'");
   $valueUsername = $username;
 
   if (mysqli_num_rows($cek) == 1) {
     $getPass = mysqli_fetch_assoc($cek);
     if (password_verify($password, $getPass['password'])) {
-        $_SESSION['fullname'] = $getPass['name'];
+        $_SESSION['fullname'] = $getPass['nama'];
         $_SESSION['time'] = date('l, j F Y', time());
       echo "
       <script>
@@ -68,7 +68,7 @@ if (isset($_POST['login'])) {
         <label>
           <input type="checkbox" name="remember"> Ingat saya
         </label>
-        <a href="#">Lupa password?</a>
+        <a href="lupaPass.php">Lupa password?</a>
       </div>
 
       <button type="submit" class="login-button" name="login">Masuk</button>

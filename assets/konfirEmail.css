@@ -1,0 +1,112 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* Main Styles */
+body {
+font-family: 'Segoe UI', system-ui, sans-serif;
+background-color: #f8fafc;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+padding: 20px;
+background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: #1e293b;
+}
+
+.confirmation-container {
+background: white;
+width: 100%;
+max-width: 450px;
+padding: 40px;
+border-radius: 12px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+text-align: center;
+}
+
+.icon-circle {
+width: 80px;
+height: 80px;
+background-color: #f0fdf4;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 0 auto 20px;
+}
+
+.icon-circle svg {
+width: 40px;
+height: 40px;
+color: #22c55e;
+}
+
+h1 {
+font-size: 24px;
+margin-bottom: 15px;
+}
+
+.confirmation-text {
+color: #64748b;
+line-height: 1.6;
+margin-bottom: 25px;
+}
+
+.email-highlight {
+font-weight: 600;
+color: #1e293b;
+}
+
+.check-spam {
+background-color: #f8fafc;
+border: 1px solid #e2e8f0;
+border-radius: 8px;
+padding: 15px;
+margin: 25px 0;
+text-align: left;
+}
+
+.check-spam h3 {
+font-size: 16px;
+margin-bottom: 8px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+
+.check-spam h3 svg {
+width: 18px;
+height: 18px;
+color: #64748b;
+}
+
+.check-spam p {
+color: #64748b;
+font-size: 14px;
+line-height: 1.5;
+}
+
+.back-to-login {
+margin-top: 25px;
+}
+
+.back-to-login a {
+color: #3b82f6;
+text-decoration: none;
+font-weight: 500;
+display: inline-flex;
+align-items: center;
+gap: 5px;
+}
+
+.back-to-login a:hover {
+text-decoration: underline;
+}
+
+.back-to-login a svg {
+width: 16px;
+height: 16px;
+}

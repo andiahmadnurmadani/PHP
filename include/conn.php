@@ -1,2 +1,2 @@
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'andi');
+$conn = mysqli_connect('localhost', 'root', '', 'nmd');

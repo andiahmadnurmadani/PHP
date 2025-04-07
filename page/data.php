@@ -2,9 +2,8 @@
 include "../include/conn.php";
 include "../include/check_session.php";
 
-function greet($username, $time)
-{
-  echo "<div class='welcome-box'>";
+function greet($username, $time) {
+  echo "<div class='greeting'>";
   echo "<p>Selamat Datang, <strong>$username</strong></p>";
   echo "<p>Waktu Login: <strong>$time</strong></p>";
   echo "</div>";
@@ -20,286 +19,265 @@ $result = mysqli_query($conn, $query);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Mahasiswa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --black: #111111;
+      --black: #000000;
       --white: #ffffff;
-      --gray-100: #f5f5f5;
-      --gray-200: #eeeeee;
-      --gray-500: #9e9e9e;
-      --gray-700: #616161;
-      --gray-900: #212121;
+      --gray: #f5f5f5;
+      --dark-gray: #e0e0e0;
+      --shadow: 4px 4px 0px var(--black);
+      --shadow-hover: 6px 6px 0px var(--black);
+      --transition: all 0.2s ease;
     }
-    
-    /* Base Styles */
+
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--white);
+      color: var(--black);
       margin: 0;
-      padding: 0;
+      padding: 20px;
+    }
+
+    .greeting {
       background-color: var(--white);
-      color: var(--black);
-      line-height: 1.6;
-    }
-    
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    
-    /* Header Styles */
-    .header {
-      margin-bottom: 2.5rem;
-      text-align: center;
-    }
-    
-    h1 {
-      color: var(--black);
-      margin: 0 0 1rem 0;
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-    
-    /* Welcome Box */
-    .welcome-box {
-      background-color: var(--white);
-      padding: 1.5rem;
-      border-radius: 0.5rem;
+      border: 2px solid var(--black);
+      padding: 1rem;
       margin-bottom: 2rem;
-      border: 1px solid var(--gray-200);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      box-shadow: var(--shadow);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    
-    .welcome-box p {
-      margin: 0.5rem 0;
-      color: var(--gray-700);
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
-    
-    .welcome-box strong {
-      color: var(--black);
-      font-weight: 600;
-    }
-    
-    /* Action Buttons */
-    .action-buttons {
+
+    .action-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
     }
-    
-    .btn {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.375rem;
+
+    .action-links a {
+      padding: 0.5rem 1rem;
+      background-color: var(--white);
+      color: var(--black);
+      border: 2px solid var(--black);
       text-decoration: none;
       font-weight: 500;
-      transition: all 0.2s ease;
-      display: inline-flex;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.875rem;
-      border: 1px solid transparent;
     }
-    
-    .btn-outline {
-      background-color: transparent;
+
+    .action-links a:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(-2px, -2px);
+    }
+
+    .action-links a.logout {
       border-color: var(--black);
       color: var(--black);
     }
-    
-    .btn-outline:hover {
+
+    .action-links a.logout:hover {
       background-color: var(--black);
       color: var(--white);
     }
-    
-    /* Table Styles */
-    .table-container {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 0.5rem;
-      border: 1px solid var(--gray-200);
-    }
-    
+
     table {
       width: 100%;
+      border: 3px solid var(--black);
       border-collapse: collapse;
       background-color: var(--white);
-      min-width: 800px;
+      box-shadow: var(--shadow);
+      margin: 0 auto;
+      max-width: 1200px;
     }
-    
+
     th, td {
-      padding: 1rem 1.25rem;
+      border: 2px solid var(--black);
+      padding: 0.8rem;
       text-align: left;
-      border-bottom: 1px solid var(--gray-200);
     }
-    
+
     th {
-      background-color: var(--black);
-      color: var(--white);
+      background-color: var(--white);
       font-weight: 600;
       text-transform: uppercase;
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       letter-spacing: 0.5px;
     }
-    
-    tr:last-child td {
-      border-bottom: none;
+
+    tr:nth-child(even) {
+      background-color: var(--gray);
     }
-    
+
     tr:hover {
-      background-color: var(--gray-100);
+      background-color: var(--dark-gray);
     }
-    
-    /* Action Links */
-    .action-links {
+
+    .action-buttons {
       display: flex;
-      gap: 1rem;
+      gap: 0.5rem;
     }
-    
-    .action-links a {
-      color: var(--black);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      font-size: 0.875rem;
-      font-weight: 500;
-      display: flex;
+
+    .action-buttons a {
+      display: inline-flex;
       align-items: center;
-      gap: 0.375rem;
-    }
-    
-    .action-links a:hover {
-      color: var(--gray-700);
-    }
-    
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 3rem;
-      background-color: var(--white);
-      border-radius: 0.5rem;
-      border: 1px solid var(--gray-200);
-      margin-top: 2rem;
-    }
-    
-    .empty-state h3 {
-      color: var(--black);
-      margin-bottom: 1rem;
-    }
-    
-    .empty-state a {
-      color: var(--black);
+      justify-content: center;
+      padding: 0.3rem 0.6rem;
+      border: 2px solid var(--black);
       text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px solid currentColor;
+      color: var(--black);
+      border-radius: 0;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      gap: 0.3rem;
     }
-    
-    /* Responsive */
+
+    .action-buttons a:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(-2px, -2px);
+    }
+
+    .action-buttons a.edit {
+      background-color: var(--white);
+    }
+
+    .action-buttons a.edit:hover {
+      background-color: #f0f0f0;
+    }
+
+    .action-buttons a.delete {
+      background-color: var(--white);
+    }
+
+    .action-buttons a.delete:hover {
+      background-color: #ffebee;
+    }
+
+    .empty-message {
+      text-align: center;
+      margin: 2rem 0;
+      font-size: 1.1rem;
+    }
+
+    .empty-message a {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--black);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: var(--black);
+      gap: 0.5rem;
+    }
+
+    .empty-message a:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(-2px, -2px);
+    }
+
     @media (max-width: 768px) {
-      .container {
-        padding: 1.25rem;
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .action-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
       }
       
       .action-buttons {
         flex-direction: column;
+        gap: 0.3rem;
       }
-      
-      .btn {
-        justify-content: center;
-      }
-    }
-    
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .welcome-box, .action-buttons, .table-container, .empty-state {
-      animation: fadeIn 0.4s ease-out forwards;
-    }
-    
-    .table-container {
-      animation-delay: 0.1s;
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>DATA MAHASISWA</h1>
-    </div>
-    
-    <?php greet($_SESSION['fullname'], $_SESSION['time']) ?>
-    
-    <div class="action-buttons">
-      <a href="tambah.php" class="btn btn-outline">
-        <i class="fas fa-plus"></i> Tambah Data
-      </a>
-      <a href="logout.php" class="btn btn-outline" onclick="return confirm('Tetap ingin Log out?')">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </a>
-    </div>
-    
-    <?php
-    $baris = "SELECT * FROM mahasiswa";
-    $exBaris = mysqli_query($conn, $baris);
-    if (mysqli_num_rows($exBaris) < 1) {
-      echo "<div class='empty-state'>
-              <h3><i class='fas fa-database'></i> DATA KOSONG</h3>
-              <p>Silahkan <a href='tambah.php'>tambah data</a> untuk memulai</p>
-            </div>";
-      return;
-    }
-    ?>
-    
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>NIM</th>
-            <th>Nama</th>
-            <th>Tanggal Lahir</th>
-            <th>Jenis Kelamin</th>
-            <th>Alamat</th>
-            <th>Email</th>
-            <th>NO HP</th>
-            <th>Prodi</th>
-            <th>Angkatan</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php while ($tampilkan = mysqli_fetch_assoc($result)) : ?>
-            <tr>
-              <td><?= $tampilkan['nim'] ?></td>
-              <td><?= $tampilkan['nama'] ?></td>
-              <td><?= $tampilkan['tanggal_lahir'] ?></td>
-              <td><?= $tampilkan['jenis_kelamin'] ?></td>
-              <td><?= $tampilkan['alamat'] ?></td>
-              <td><?= $tampilkan['email'] ?></td>
-              <td><?= $tampilkan['no_hp'] ?></td>
-              <td><?= $tampilkan['prodi'] ?></td>
-              <td><?= $tampilkan['angkatan'] ?></td>
-              <td>
-                <div class="action-links">
-                  <a href="edit.php?nim=<?= $tampilkan['nim'] ?>">
-                    <i class="fas fa-pencil-alt"></i> Edit
-                  </a>
-                  <a href="hapus.php?nim=<?= $tampilkan['nim'] ?>" onclick="return confirm('Yakin Ingin Menghapus?')">
-                    <i class="fas fa-trash"></i> Hapus
-                  </a>
-                </div>
-              </td>
-            </tr>
-          <?php endwhile ?>
-        </tbody>
-      </table>
-    </div>
+  <?php greet($_SESSION['fullname'], $_SESSION['time']) ?>
+  <h1>Data Mahasiswa</h1>
+  
+  <div class="action-links">
+    <a href="tambah.php">
+      <i class="fas fa-plus"></i> Tambah Data
+    </a>
+    <a href="logout.php" class="logout" onclick="return confirm('Tetap ingin Log out?')">
+      <i class="fas fa-sign-out-alt"></i> Log Out
+    </a>
   </div>
+
+  <?php
+  $baris = "SELECT * FROM mahasiswa";
+  $exBaris = mysqli_query($conn, $baris);
+  $data = mysqli_fetch_assoc($exBaris);
+  if (mysqli_num_rows($exBaris) < 1) {
+    echo "<div class='empty-message'>";
+    echo "<h3>Data Kosong!</h3>";
+    echo "<a href='tambah.php'><i class='fas fa-plus'></i> Tambah Data</a>";
+    echo "</div>";
+    return;
+  }
+  ?>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>NIM</th>
+        <th>Nama</th>
+        <th>Tanggal Lahir</th>
+        <th>Jenis Kelamin</th>
+        <th>Alamat</th>
+        <th>Email</th>
+        <th>NO HP</th>
+        <th>Prodi</th>
+        <th>Angkatan</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php while ($tampilkan = mysqli_fetch_assoc($result)) : ?>
+        <tr>
+          <td><?= $tampilkan['nim'] ?></td>
+          <td><?= $tampilkan['nama'] ?></td>
+          <td><?= $tampilkan['tanggal_lahir'] ?></td>
+          <td><?= $tampilkan['jenis_kelamin'] ?></td>
+          <td><?= $tampilkan['alamat'] ?></td>
+          <td><?= $tampilkan['email'] ?></td>
+          <td><?= $tampilkan['no_hp'] ?></td>
+          <td><?= $tampilkan['prodi'] ?></td>
+          <td><?= $tampilkan['angkatan'] ?></td>
+          <td>
+            <div class="action-buttons">
+              <a href="edit.php?nim=<?= $tampilkan['nim'] ?>" class="edit">
+                <i class="fas fa-edit"></i> Edit
+              </a>
+              <a href="hapus.php?nim=<?= $tampilkan['nim'] ?>" class="delete" onclick="return confirm('Yakin Ingin Menghapus?')">
+                <i class="fas fa-trash-alt"></i> Hapus
+              </a>
+            </div>
+          </td>
+        </tr>
+      <?php endwhile ?>
+    </tbody>
+  </table>
 </body>
 
 </html>

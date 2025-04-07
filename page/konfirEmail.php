@@ -29,7 +29,144 @@ if (isset($_GET['token'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Terkirim</title>
-    <link rel="stylesheet" href="../assets/konfirEmail.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --shadow: 4px 4px 0px var(--black);
+            --shadow-hover: 6px 6px 0px var(--black);
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .confirmation-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            background-color: var(--white);
+            border: 3px solid var(--black);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            margin: 2rem;
+        }
+
+        .confirmation-container:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .icon-circle svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--black);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .confirmation-text {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .email-highlight {
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .check-spam {
+            background-color: var(--gray);
+            border: 2px solid var(--black);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            text-align: left;
+        }
+
+        .check-spam h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        .check-spam svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--black);
+        }
+
+        .check-spam p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        .back-to-login a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--white);
+            color: var(--black);
+            border: 2px solid var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .back-to-login a:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translate(-2px, -2px);
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .back-to-login svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .confirmation-container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -43,7 +180,7 @@ if (isset($_GET['token'])) {
         <h1>Email Terkirim!</h1>
 
         <p class="confirmation-text">
-            Kami telah mengirimkan link reset password ke <span class="email-highlight"><?= $email ?></span>.
+            Kami telah mengirimkan link reset password ke <span style="text-decoration: none;" class="email-highlight"><?= $email ?></span>.
             Silakan periksa inbox email Anda.
         </p>
 

@@ -8,11 +8,8 @@ include "../include/conn.php";
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daftar Akun Baru</title>
-  <link rel="stylesheet" href="../assets/register.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-
-  </style>
+  <link rel="stylesheet" href="../assets/register.css">
 </head>
 
 <body>
@@ -55,7 +52,6 @@ include "../include/conn.php";
           <span class="checkmark"></span>
           Saya menyetujui
           <a href="#" class="terms-link">Syarat dan Ketentuan</a>
-
           <a href="#" class="terms-link">Kebijakan Privasi</a>
         </label>
       </div>

@@ -48,6 +48,7 @@ if (isset($_POST['submit'])) {
 
   if ($cek) {
     $nama = $cek['nama'];
+    $username = $cek['username'];
 
     $token = bin2hex(random_bytes(50));
 
@@ -55,7 +56,7 @@ if (isset($_POST['submit'])) {
 
     $link = "http://localhost/Latihan_CRUD_php/page/passbaru.php?token=" . $token;
     $subject = "Reset Password Anda";
-    $msg = "Hallo, $nama <br> Kami menerima permintaan reset password untuk akun Anda. Klik tombol berikut dalam <strong>24 jam</strong> untuk melanjutkan: 
+    $msg = "Hallo, $nama <br> Kami menerima permintaan reset password untuk akun Anda. Dengan username : <h2>$username</h2> Klik tombol berikut untuk melanjutkan: 
     <a href='$link' class='button'>Reset Password</a> Atau salin link ini ke browser Anda:<br>
     <small>$link</small></p>";
 

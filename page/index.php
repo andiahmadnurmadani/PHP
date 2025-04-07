@@ -13,8 +13,8 @@ if (isset($_POST['login'])) {
   if (mysqli_num_rows($cek) == 1) {
     $getPass = mysqli_fetch_assoc($cek);
     if (password_verify($password, $getPass['password'])) {
-        $_SESSION['fullname'] = $getPass['nama'];
-        $_SESSION['time'] = date('l, j F Y', time());
+      $_SESSION['fullname'] = $getPass['nama'];
+      $_SESSION['time'] = date('l, j F Y', time());
       echo "
       <script>
       alert('Berhasil Login')
@@ -63,6 +63,12 @@ if (isset($_POST['login'])) {
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Masukkan password" required>
       </div>
+      
+      <div class="form-options">
+        <label>
+          <input type="checkbox" id="checkbox"> Lihat Sandi
+        </label>
+      </div>
 
       <div class="form-options">
         <label>
@@ -78,6 +84,19 @@ if (isset($_POST['login'])) {
       </div>
     </form>
   </div>
+
+  <script>
+    let checkbox = document.getElementById('checkbox');
+    let input = document.getElementById('password');
+
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked) {
+        input.type = 'text'
+      } else {
+        input.type = 'password'
+      }
+    })
+  </script>
 </body>
 
 </html>

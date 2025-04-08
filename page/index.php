@@ -7,7 +7,7 @@ $valueUsername = "";
 if (isset($_POST['login'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
-  $cek = mysqli_query($conn, "SELECT * FROM user WHERE username='$username'");
+  $cek = mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$username'");
   $valueUsername = $username;
 
   if (mysqli_num_rows($cek) == 1) {

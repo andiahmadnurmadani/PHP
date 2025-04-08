@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
     exit();
   }
 
-  $cek = mysqli_query($conn, "SELECT * FROM user WHERE username='$username' OR email='$email'");
+  $cek = mysqli_query($conn, "SELECT * FROM pengguna WHERE username='$username' OR email='$email'");
 
   if (mysqli_num_rows($cek) > 0) {
     echo "<script>alert('Username atau Email Sudah Terdaftar')</script>";
@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
 
   if ($password == $konfirpass && strlen($password) >= 8 && strlen($password) <= 16) {
     $hash = password_hash($password, PASSWORD_DEFAULT);
-    $query = "INSERT INTO user (nama, email, username, password) VALUES ('$namalengkap', '$email', '$username', '$hash')";
+    $query = "INSERT INTO pengguna (nama, email, username, password) VALUES ('$namalengkap', '$email', '$username', '$hash')";
     mysqli_query($conn, $query);
   } else {
     echo "<script>alert('Password tidak sesuai')</script>";

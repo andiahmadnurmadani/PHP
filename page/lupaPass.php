@@ -184,7 +184,7 @@ require '../vendor/autoload.php';
 <?php
 if (isset($_POST['submit'])) {
   $email = $_POST['email'];
-  $query = "SELECT * FROM user WHERE email='$email'";
+  $query = "SELECT * FROM pengguna WHERE email='$email'";
   $result = mysqli_query($conn, $query);
   $cek = mysqli_fetch_assoc($result);
 
@@ -249,7 +249,7 @@ if (isset($_POST['submit'])) {
 
 <p style='color: #666; font-size: 0.9em; border-top: 1px solid #eee; padding-top: 15px; margin-top: 20px;'>
   <strong>Catatan Penting:</strong><br>
-  - Link ini akan kadaluarsa dalam 24 jam<br>
+  - Link ini akan kadaluarsa dalam 5 Menit<br>
   - Jika Anda tidak meminta reset password, abaikan email ini<br>
   - Untuk keamanan, jangan bagikan link ini kepada siapapun
 </p>

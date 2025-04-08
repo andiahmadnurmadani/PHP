@@ -1,10 +1,12 @@
 <?php
 include "../include/conn.php";
-
+$email;
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
     $querycek = "SELECT * FROM reset_pass WHERE token='$token'";
     $exec = mysqli_query($conn, $querycek);
+    $getEmail = mysqli_fetch_assoc($exec);
+    $email = $getEmail['email'];
     if (mysqli_num_rows($exec) == 0) {
         echo "
     <script>
@@ -19,6 +21,7 @@ if (isset($_GET['token'])) {
     window.location.href='lupaPass.php'
     </script>";
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -29,142 +32,7 @@ if (isset($_GET['token'])) {
     <title>Password Baru</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --black: #000000;
-            --white: #ffffff;
-            --gray: #f5f5f5;
-            --dark-gray: #e0e0e0;
-            --shadow: 4px 4px 0px var(--black);
-            --shadow-hover: 6px 6px 0px var(--black);
-            --transition: all 0.2s ease;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--white);
-            color: var(--black);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .password-container {
-            width: 100%;
-            max-width: 500px;
-            padding: 2rem;
-            background-color: var(--white);
-            border: 3px solid var(--black);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            margin: 2rem;
-        }
-
-        .password-container:hover {
-            box-shadow: var(--shadow-hover);
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--black);
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .input-box {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            position: relative;
-        }
-
-        .input-box label {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .input-box input {
-            padding: 0.8rem 1rem;
-            border: 2px solid var(--black);
-            background-color: var(--white);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            padding-right: 3rem;
-        }
-
-        .input-box input:focus {
-            outline: none;
-            box-shadow: var(--shadow-hover);
-            transform: translate(-2px, -2px);
-        }
-
-        .input-box input:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translate(-2px, -2px);
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 1rem;
-            top: 2.8rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: var(--black);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .toggle-password:hover {
-            text-decoration: underline;
-        }
-
-        .submit-btn {
-            padding: 0.8rem;
-            background-color: var(--white);
-            color: var(--black);
-            border: 2px solid var(--black);
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 1rem;
-        }
-
-        .submit-btn:hover {
-            background-color: var(--black);
-            color: var(--white);
-            box-shadow: var(--shadow-hover);
-            transform: translate(-2px, -2px);
-        }
-
-        @media (max-width: 600px) {
-            .password-container {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/passBaru.css">
 </head>
 
 <body>
@@ -172,9 +40,10 @@ if (isset($_GET['token'])) {
         <h1>Buat Password Baru</h1>
         <p class="subtitle">Masukkan dan konfirmasi password baru Anda</p>
 
-        <form method="POST" action="process_reset.php">
-            <input type="hidden" name="token" value="<?= $_GET['token'] ?>">
-            
+        <form method="POST" action="">
+            <input type="hidden" name="email" value="<?= $email ?>">
+            <input type="hidden" name="token" value="<?= $token ?>">
+
             <div class="input-box">
                 <label for="new-password">Password Baru</label>
                 <input type="password" id="new-password" name="new_password" placeholder="Minimal 8 karakter" required>
@@ -188,7 +57,7 @@ if (isset($_GET['token'])) {
                 <input type="password" id="confirm-password" name="confirm_password" placeholder="Ketik ulang password" required>
             </div>
 
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" name="submit">
                 <i class="fas fa-save"></i> Simpan Password
             </button>
         </form>
@@ -198,7 +67,7 @@ if (isset($_GET['token'])) {
         function togglePassword() {
             const passwordInput = document.getElementById('new-password');
             const toggleIcon = document.querySelector('.toggle-password i');
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
@@ -213,3 +82,27 @@ if (isset($_GET['token'])) {
 </body>
 
 </html>
+
+<?php
+if (isset($_POST['submit'])) {
+    $email = $_POST['email'];
+    $token = $_POST['token'];
+    $password = $_POST['new_password'];
+    $konfirpass = $_POST['confirm_password'];
+
+    if ($password == $konfirpass && strlen($password) >= 8 && strlen($password) <= 16) {
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $query = "UPDATE pengguna SET password='$hash' WHERE email='$email'";
+        mysqli_query($conn, $query);
+    } else {
+        echo "<script>alert('Password tidak sesuai')</script>";
+    }
+
+    if (mysqli_affected_rows($conn) > 0) {
+        header("Location:konfirUbahpass.php?token=$token");
+    } else {
+        echo "<script>alert('Password gagal diubah')</script>";
+    }
+}
+
+?>
